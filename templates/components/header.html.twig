@@ -1,16 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  ContactMe!
+  {{ title }}
 {% endblock %}
 
-{% block body %}
-  <header>
+{% block header %}
+  <header class="flex justify-between border-b-2 border-black">
     <div class="app-title">
-      <div>ContactMe!
+      <div>
+        ConnectMe!
       </div>
     </div>
     <div class="app-menu">
+      <a href="{{ path('index') }}">Index</a>
+      <a href="{{ path('list') }}">Liste de contact</a>
     </div>
   </header>
+
 {% endblock %}

@@ -1,3 +1,13 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+
+index:
+    path: /index
+    controller: App\Controller\IndexController::index
+    methods: [GET]
+
+list:
+    path: /list
+    controller: App\Controller\ListController::index
+    methods: [GET]

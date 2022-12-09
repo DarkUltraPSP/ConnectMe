@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    background-color: lightgray;
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+scheme {
+    color: #151e3f;
+    color: #030027;
+    color: #F2F3D9;
+    color: #DC9E82;
+    color: #C16E70;
+}
+
+scheme2 { 
+    color: #8fbfe0;
+    color: #7c77b9;
+    color: #1d8a99;
+    color: #0bc9cd;
+    color: #14fff7;
 }
