@@ -1,20 +1,11 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}
-  {{ title }}
-{% endblock %}
-
 {% block header %}
-  <header class="flex justify-between border-b-2 border-black">
-    <div class="app-title">
-      <div>
-        ConnectMe!
+    <header class="flex justify-between border-b border-gray-500">
+      <div class="app-title flex items-center">
+        <a href="{{ path('index') }}" class="text-2xl font-bold mx-2">ConnectMe!</a>
       </div>
-    </div>
-    <div class="app-menu">
-      <a href="{{ path('index') }}">Index</a>
-      <a href="{{ path('list') }}">Liste de contact</a>
-    </div>
-  </header>
-
+      <div class="app-menu flex items-center">
+        <a href="{{ path('list') }}" class="mx-2">Liste de contact</a>
+        <a href="{{ path('add') }}" class="mx-2">Ajouter un contact</a>
+      </div>
+    </header>
 {% endblock %}

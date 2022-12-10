@@ -1,15 +1,18 @@
-{% extends 'components/header.html.twig' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Welcome !
+{% endblock %}
 
 {% block body %}
-  <div class="content-wrapper h-full flex justify-center items-center">
+  <div class="content-wrapper flex justify-center items-center">
     <div class="item-wrapper flex flex-col justify-center">
-        <div class="text-6xl m-2">
-            ConnectMe!
-        </div>
-
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            <a href="">Get Started !</a>
-        </button>
-    <div>
+      <div class="text-6xl m-2">
+        ConnectMe!
+      </div>
+      <a href="{{ path('list') }}" class="bg-[#003366] ease-in-out duration-150 hover:scale-110 hover:bg-[#1c5186] text-white font-bold py-2 px-4 rounded text-center">
+        Commencer
+      </a>
+    </div>
   </div>
 {% endblock %}

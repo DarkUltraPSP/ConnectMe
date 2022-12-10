@@ -4,10 +4,15 @@ controllers:
 
 index:
     path: /index
-    controller: App\Controller\IndexController::index
+    controller: App\Controller\ContactController::index
     methods: [GET]
 
 list:
-    path: /list
-    controller: App\Controller\ListController::index
+    path: /contact/list
+    controller: App\Controller\ContactController::list
     methods: [GET]
+
+add:
+    path: /contact/add
+    controller: App\Controller\ContactController::add
+    methods: [GET, POST]

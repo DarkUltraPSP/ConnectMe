@@ -2,23 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-    height: 100%;
-    margin: 0;
+html {
+    font-family: Arial;
 }
 
-scheme {
-    color: #151e3f;
-    color: #030027;
-    color: #F2F3D9;
-    color: #DC9E82;
-    color: #C16E70;
+header, footer {
+    background-color: #1c5186;
+    color: white;
+    height: 5vh;
 }
 
-scheme2 { 
-    color: #8fbfe0;
-    color: #7c77b9;
-    color: #1d8a99;
-    color: #0bc9cd;
-    color: #14fff7;
+body {
+    background-color: #D8D8D8;
+}
+
+scheme1 {
+    color: #003366;
+    color: #F0F0F0;
+    color: #FFFFCC;
+    color: #CCFFCC;
+    color: #000000;
+}
+
+scheme2 {
+    color: #002D68;
+    color: #D8D8D8;
+    color: #FFD933;
+    color: #C1FFC1;
+    color: #000000;
+}
+
+scheme3 {
+    color: #9BC9E2;
+    color: #E6E6E6;
+    color: #FFD95B;
+    color: #95E8D1;
+    color: #212121;
+}
+
+scheme4 {
+    color: #87CEEB;
+    color: #F2F2F2;
+    color: #FF9F1C;
+    color: #C8F7C5;
+    color: #333333;
 }
