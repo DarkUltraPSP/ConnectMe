@@ -8,18 +8,16 @@
         <div class="fname"> {{ contact.fname }}</div>
     </div>
     <div class="actions w-1/6 flex justify-center">
-        <form action=" {# {{ path('contact_delete', {'id': contact.id}) }} #}" class="flex flex-col justify-center p-2" method="post">
+        <div class="flex flex-col justify-center p-2">
             <div class="flex edit-btn">
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ contact.id) }}">
-                <a href="{{ path('add') }}" class="bg-[#003366] hover:bg-[#1c5186] hover:scale-110 text-white rounded px-3 my-1 ease-in-out duration-150 w-full text-center"> Editer </a>
+                <a href="{{ path('edit', {id: contact.id}) }}" class="bg-[#003366] hover:bg-[#1c5186] hover:scale-110 text-white rounded px-3 my-1 ease-in-out duration-150 w-full text-center"> Editer </a>
             </div>
 
             <div class="flex delete-btn">
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ contact.id) }}">
-                <a href="{{ path('delete', {id: contact.id}) }}" class="bg-[#990e0e] hover:bg-[#b40f0f] hover:scale-110 text-white rounded px-3 my-1 ease-in-out duration-150 w-full text-center"> Supprimer </a>
+                <a href="{{ path('delete', {id: contact.id}) }}" class="bg-[#990e0e] hover:bg-[#b40f0f] hover:scale-110 text-white rounded px-3 my-1 ease-in-out duration-150 w-full text-center">
+                    Supprimer
+                </a>
             </div>
-        </form>
+        </div>
     </div>
 </div>
