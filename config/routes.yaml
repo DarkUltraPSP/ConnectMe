@@ -27,6 +27,11 @@ edit:
     controller: App\Controller\ContactController::edit
     methods: [GET, POST]
 
+update:
+    path: /contact/update/{id}
+    controller: App\Controller\ContactController::update
+    methods: [GET, POST]
+
 addSender:
     path: /contact/add/sender
     controller: App\Controller\ContactController::sender

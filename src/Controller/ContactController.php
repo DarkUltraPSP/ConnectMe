@@ -41,15 +41,39 @@ class ContactController extends AbstractController
     }
 
     #[Route('/contact/edit/{id}', name: 'app_contact_edit')]
-    public function edit(): Response
+    public function edit(Contact $contact = null, ManagerRegistry $doctrine): Response
     {
-        return $this->render('Contact/add.html.twig', [
+        return $this->render('Contact/edit.html.twig', [
             'title' => 'Editer un contact',
+            'contact' => $contact,
         ]);
+    }
+
+    #[Route('/contact/update/{id}', name: 'app_contact_update')]
+    public function update(Contact $contact = null, Request $request, ManagerRegistry $doctrine): RedirectResponse
+    {
+        if ($contact) {
+            $contact->setLname($request->request->get('lname'));
+            $contact->setFname($request->request->get('fname'));
+            $contact->setTel($request->request->get('tel'));
+            $contact->setMail($request->request->get('email'));
+            $contact->setidGroup($request->request->get('idGroup'));
+
+            $manager = $doctrine->getManager();
+            $manager->persist($contact);
+            $manager->flush();
+
+            $this->addFlash('success', "Contact modifié");
+        }
+        else {
+            $this->addFlash('error', "Contact inexistant");
+        }
+
+        return $this->redirectToRoute("list");
     }
     
     #[Route('/contact/delete/{id}', name: 'app_contact_delete')]
-    public function delete(Request $request, Contact $contact = null, ManagerRegistry $doctrine): RedirectResponse
+    public function delete(Contact $contact = null, ManagerRegistry $doctrine): RedirectResponse
     {
         if ($contact) {
             $manager = $doctrine->getManager();
