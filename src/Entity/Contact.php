@@ -31,6 +31,27 @@ class Contact
     #[ORM\Column(nullable: true)]
     private ?int $idGroup = null;
 
+    /**
+     * @param int|null $id
+     * @param string|null $lname
+     * @param string|null $fname
+     * @param string|null $tel
+     * @param string|null $mail
+     * @param string|null $photo
+     * @param int|null $idGroup
+     */
+    public function __construct(?int $id, ?string $lname, ?string $fname, ?string $tel, ?string $mail, ?string $photo, ?int $idGroup)
+    {
+        $this->id = $id;
+        $this->lname = $lname;
+        $this->fname = $fname;
+        $this->tel = $tel;
+        $this->mail = $mail;
+        $this->photo = $photo;
+        $this->idGroup = $idGroup;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;

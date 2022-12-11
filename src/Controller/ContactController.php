@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,23 +16,75 @@ class ContactController extends AbstractController
     public function index(): Response
     {
         return $this->render('index/index.html.twig', [
-            'title' => 'Welcome',
+            'title' => 'Welcome !',
         ]);
     }
 
     #[Route('/contact/list', name: 'app_contact_list')]
-    public function list(): Response
+    public function list(ManagerRegistry $doctrine): Response
     {
-        return $this->render('list/index.html.twig', [
-            'title' => 'Liste de contacts',
+        // get contact list from database
+        $contactList = $doctrine->getRepository(Contact::class)->findAll();
+
+        return $this->render('Contact/list.html.twig', [
+            'title' => 'Liste',
+            'contactList' => $contactList,
         ]);
     }
 
     #[Route('/contact/add', name: 'app_contact_add')]
     public function add(): Response
     {
-        return $this->render('add/add.html.twig', [
+        return $this->render('Contact/add.html.twig', [
             'title' => 'Ajouter un contact',
+        ]);
+    }
+
+    #[Route('/contact/edit/{id}', name: 'app_contact_edit')]
+    public function edit(): Response
+    {
+        return $this->render('Contact/add.html.twig', [
+            'title' => 'Editer un contact',
+        ]);
+    }
+    
+    #[Route('/contact/delete/{id}', name: 'app_contact_delete')]
+    public function delete(Request $request, Contact $contact = null, ManagerRegistry $doctrine): RedirectResponse
+    {
+        if ($contact) {
+            $manager = $doctrine->getManager();
+            $manager->remove($contact);
+            $manager->flush();
+
+            $this->addFlash('success', "Contact supprimé");
+        }
+        else {
+            $this->addFlash('error', "Contact inexistant");
+        }
+
+        return $this->redirectToRoute("list");
+    }
+
+    #[Route('/contact/add/sender', name: 'app_contact_sender')]
+    public function sender(Request $request, ManagerRegistry $doctrine): RedirectResponse
+    {
+        // dd($request->request->all());
+        $contact = $request->request->all();
+        $entityManager = $doctrine->getManager();
+        $contact = new Contact(null, $contact['lname'], $contact['fname'], $contact['tel'], $contact['email'], null, $contact['idGroup'] || null);
+        $entityManager->persist($contact);
+        $entityManager->flush();
+
+        return $this->redirectToRoute("list");
+    }
+
+    #[Route('/test', name: 'test')]
+    public function test(Request $request): Response
+    {
+        // dd($request->request->all());
+        return $this->render('test/test.html.twig', [
+            //Post data
+            'posts' => $request->request->all(),
         ]);
     }
 }

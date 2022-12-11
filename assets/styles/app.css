@@ -6,44 +6,61 @@ html {
     font-family: Arial;
 }
 
-header, footer {
+header,
+footer {
     background-color: #1c5186;
     color: white;
     height: 5vh;
 }
 
 body {
-    background-color: #D8D8D8;
+    background-color: #d8d8d8;
+}
+
+.scrollbar {
+    overflow: overlay;
+}
+
+.scrollbar::-webkit-scrollbar {
+    width: 16px;
+    background-color: transparent;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    background-color: #003366;
+    border-radius: 8px;
+    border: 4px solid transparent;
+    background-clip: content-box;
 }
 
 scheme1 {
     color: #003366;
-    color: #F0F0F0;
-    color: #FFFFCC;
-    color: #CCFFCC;
+    color: #f0f0f0;
+    color: #ffffcc;
+    color: #ccffcc;
     color: #000000;
 }
 
 scheme2 {
-    color: #002D68;
-    color: #D8D8D8;
-    color: #FFD933;
-    color: #C1FFC1;
+    color: #002d68;
+    color: #d8d8d8;
+    color: #ffd933;
+    color: #c1ffc1;
     color: #000000;
 }
 
 scheme3 {
-    color: #9BC9E2;
-    color: #E6E6E6;
-    color: #FFD95B;
-    color: #95E8D1;
+    color: #9bc9e2;
+    color: #e6e6e6;
+    color: #ffd95b;
+    color: #95e8d1;
     color: #212121;
 }
 
 scheme4 {
-    color: #87CEEB;
-    color: #F2F2F2;
-    color: #FF9F1C;
-    color: #C8F7C5;
+    color: #87ceeb;
+    color: #f2f2f2;
+    color: #ff9f1c;
+    color: #c8f7c5;
     color: #333333;
 }

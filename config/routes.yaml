@@ -16,3 +16,18 @@ add:
     path: /contact/add
     controller: App\Controller\ContactController::add
     methods: [GET, POST]
+
+delete:
+    path: /contact/delete/{id}
+    controller: App\Controller\ContactController::delete
+    methods: [GET, POST]
+
+edit:
+    path: /contact/edit/{id}
+    controller: App\Controller\ContactController::edit
+    methods: [GET, POST]
+
+addSender:
+    path: /contact/add/sender
+    controller: App\Controller\ContactController::sender
+    methods: [GET, POST]
