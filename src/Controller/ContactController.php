@@ -54,36 +54,27 @@ class ContactController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'app_contact_edit')]
-    public function edit(Contact $contact = null, ManagerRegistry $doctrine): Response
+    public function edit(Contact $contact = null, ManagerRegistry $doctrine, Request $request): Response
     {
-        $groups = $doctrine->getRepository(Group::class)->findAll();
-        return $this->render('Contact/edit.html.twig', [
-            'title' => 'Editer un contact',
-            'contact' => $contact,
-            'groups' => $groups,
+        $entityManager = $doctrine->getManager();
+
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contact = $form->getData();
+
+            $entityManager->persist($contact);
+            $entityManager->flush();
+
+            $this->addFlash('success', "Contact ajouté");
+            return $this->redirectToRoute('app_contact_list');
+        }
+
+        return $this->render('Contact/add.html.twig', [
+            'title' => 'Ajouter un contact',
+            'form' => $form->createView(),
         ]);
-    }
-
-    #[Route('/update/{id}', name: 'app_contact_update')]
-    public function update(Contact $contact = null, Request $request, ManagerRegistry $doctrine): RedirectResponse
-    {
-        if ($contact) {
-            $contact->setLname($request->request->get('lname'));
-            $contact->setFname($request->request->get('fname'));
-            $contact->setTel($request->request->get('tel'));
-            $contact->setMail($request->request->get('email'));
-
-            $manager = $doctrine->getManager();
-            $manager->persist($contact);
-            $manager->flush();
-
-            $this->addFlash('success', "Contact modifié");
-        }
-        else {
-            $this->addFlash('error', "Contact inexistant");
-        }
-
-        return $this->redirectToRoute("app_contact_list");
     }
     
     #[Route('/delete/{id}', name: 'app_contact_delete')]
