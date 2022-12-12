@@ -34,12 +34,11 @@ class GroupController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $contact = $form->getData();
+            $group = $form->getData();
 
-            $entityManager->persist($contact);
+            $entityManager->persist($group);
             $entityManager->flush();
 
-            $this->addFlash('success', "Groupe Créé");
             return $this->redirectToRoute('app_group_list');
         }
 
@@ -73,7 +72,6 @@ class GroupController extends AbstractController
             $entityManager->persist($contact);
             $entityManager->flush();
 
-            $this->addFlash('success', "Groupe Créé");
             return $this->redirectToRoute('app_group_list');
         }
 
@@ -90,7 +88,6 @@ class GroupController extends AbstractController
         $entityManager->remove($group);
         $entityManager->flush();
 
-        $this->addFlash('success', "Groupe Supprimé");
         return $this->redirectToRoute('app_group_list');
     }
 }

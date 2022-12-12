@@ -39,6 +39,18 @@ class AddFieldsRepository extends ServiceEntityRepository
         }
     }
 
+    // Return all fields for a given contact ID
+    public function findByContact($contact): array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.Contact = :contact')
+            ->setParameter('contact', $contact)
+            ->orderBy('a.Contact', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return AddFields[] Returns an array of AddFields objects
 //     */

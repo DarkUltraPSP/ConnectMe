@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\AddFields;
 use App\Entity\Contact;
 use App\Entity\Group;
 use App\Form\ContactType;
@@ -97,12 +98,19 @@ class ContactController extends AbstractController
     #[Route('/card/{id}', name: 'app_contact_card')]
     public function card(Contact $contact = null, ManagerRegistry $doctrine): Response
     {
-        $repo = $doctrine->getRepository(Contact::class);
-        $contact = $repo->find(['id' => $contact->getId()]);
+        $repoContact = $doctrine->getRepository(Contact::class);
+        $contact = $repoContact->find(['id' => $contact->getId()]);
+
+        // $repoFields = $doctrine->getRepository(AddFields::class);
+        // $fields = $repoFields->findAll();
+
+        $repoFields = $doctrine->getRepository(AddFields::class);
+        $fields = $repoFields->findByContact(['contact' => $contact->getId()]);
 
         return $this->render('Contact/card.html.twig', [
             'title' => 'Profil',
             'contact' => $contact,
+            'fields' => $fields,
         ]);
     }
 }
