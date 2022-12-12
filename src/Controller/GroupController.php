@@ -61,17 +61,9 @@ class GroupController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'app_group_edit')]
-    public function edit(Request $request, ManagerRegistry $doctrine, $id): Response
+    public function edit(Request $request, ManagerRegistry $doctrine, Group $group = null): Response
     {
         $entityManager = $doctrine->getManager();
-        $group = $entityManager->getRepository(Group::class)->find($id);
-
-        if (!$group) {
-            throw $this->createNotFoundException(
-                'No group found for id ' . $id
-            );
-        }
-
         $form = $this->createForm(GroupeType::class, $group);
         $form->handleRequest($request);
 
@@ -81,13 +73,24 @@ class GroupController extends AbstractController
             $entityManager->persist($contact);
             $entityManager->flush();
 
-            $this->addFlash('success', "Groupe Modifié");
+            $this->addFlash('success', "Groupe Créé");
             return $this->redirectToRoute('app_group_list');
         }
 
-        return $this->render('group/edit.html.twig', [
-            'title' => 'Modifier un groupe',
+        return $this->render('group/add.html.twig', [
+            'title' => 'Ajouter un groupe',
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/delete/{id}', name: 'app_group_delete')]
+    public function delete(ManagerRegistry $doctrine, Group $group = null): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($group);
+        $entityManager->flush();
+
+        $this->addFlash('success', "Groupe Supprimé");
+        return $this->redirectToRoute('app_group_list');
     }
 }

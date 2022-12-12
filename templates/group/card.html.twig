@@ -1,5 +1,20 @@
-<div class="contact flex w-full h-1/5 border border-black rounded-lg mb-2">
+<div class="contact flex w-full h-1/5 border border-black rounded-lg mb-2 p-2">
     <a href="{{ path('app_group_show', {id: group.id }) }}" class="identity w-4/6">
         <div class="lname"> {{ group }} </div>
     </a>
+    <div class="actions w-2/6">
+        <div class="flex flex-col justify-center p-2">
+            <div class="flex edit-btn">
+                <a href="{{ path('app_group_edit', {id: group.id}) }}" class="bg-[#003366] hover:bg-[#1c5186] hover:scale-110 text-white rounded px-1 my-1 ease-in-out duration-150 w-full text-center">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                </a>
+            </div>
+
+            <div class="flex delete-btn">
+                <a href="{{ path('app_group_delete', {id: group.id}) }}" class="bg-[#990e0e] hover:bg-[#b40f0f] hover:scale-110 text-white rounded px-1 my-1 ease-in-out duration-150 w-full text-center">
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
