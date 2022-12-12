@@ -1,10 +1,9 @@
 <header class="flex justify-between border-b border-gray-500">
   <div class="app-title flex items-center">
-    <a href="{{ path('index') }}" class="text-2xl font-bold mx-2">ConnectMe!</a>
+    <a href="{{ path('app_index') }}" class="text-2xl font-bold mx-2">ConnectMe!</a>
   </div>
   <div class="app-menu flex items-center">
-    <a href="{{ path('list') }}" class="mx-2">Liste de contact</a>
-    <a href="{{ path('add') }}" class="mx-2">Créer un contact</a>
-    <a href="{#{{ path('group') }}#}" class="mx-2">Créer un groupe</a>
+    <a href="{{ path('app_contact_list') }}" class="mx-2">Contact</a>
+    <a href="{{ path('app_group_list') }}" class="mx-2">Groupe</a>
   </div>
 </header>

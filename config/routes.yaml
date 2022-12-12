@@ -1,38 +1,3 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
-
-index:
-    path: /index
-    controller: App\Controller\ContactController::index
-    methods: [GET]
-
-list:
-    path: /contact/list
-    controller: App\Controller\ContactController::list
-    methods: [GET]
-
-add:
-    path: /contact/add
-    controller: App\Controller\ContactController::add
-    methods: [GET, POST]
-
-delete:
-    path: /contact/delete/{id}
-    controller: App\Controller\ContactController::delete
-    methods: [GET, POST]
-
-edit:
-    path: /contact/edit/{id}
-    controller: App\Controller\ContactController::edit
-    methods: [GET, POST]
-
-update:
-    path: /contact/update/{id}
-    controller: App\Controller\ContactController::update
-    methods: [GET, POST]
-
-addSender:
-    path: /contact/add/sender
-    controller: App\Controller\ContactController::sender
-    methods: [GET, POST]

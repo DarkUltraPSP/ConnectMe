@@ -33,6 +33,20 @@ body {
     background-clip: content-box;
 }
 
+.alert-succes {
+    background-color: #ccffcc;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+}
+
 scheme1 {
     color: #003366;
     color: #f0f0f0;

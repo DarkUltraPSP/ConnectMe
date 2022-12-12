@@ -3,20 +3,20 @@
         {# img src uploads folder #}
         <img src="" class="img-fluid"/>
     </div>
-    <div class="identity w-4/6">
+    <a href="{{ path('app_contact_card', {id: contact.id}) }}" class="identity w-4/6">
         <div class="lname"> {{ contact.lname }} </div>
         <div class="fname"> {{ contact.fname }}</div>
-    </div>
+    </a>
     <div class="actions w-1/6 flex justify-end">
         <div class="flex flex-col justify-center p-2">
             <div class="flex edit-btn">
-                <a href="{{ path('edit', {id: contact.id}) }}" class="bg-[#003366] hover:bg-[#1c5186] hover:scale-110 text-white rounded px-1 my-1 ease-in-out duration-150 w-full text-center">
+                <a href="{{ path('app_contact_edit', {id: contact.id}) }}" class="bg-[#003366] hover:bg-[#1c5186] hover:scale-110 text-white rounded px-1 my-1 ease-in-out duration-150 w-full text-center">
                     <i class="fa-regular fa-pen-to-square"></i>
                 </a>
             </div>
 
             <div class="flex delete-btn">
-                <a href="{{ path('delete', {id: contact.id}) }}" class="bg-[#990e0e] hover:bg-[#b40f0f] hover:scale-110 text-white rounded px-1 my-1 ease-in-out duration-150 w-full text-center">
+                <a href="{{ path('app_contact_delete', {id: contact.id}) }}" class="bg-[#990e0e] hover:bg-[#b40f0f] hover:scale-110 text-white rounded px-1 my-1 ease-in-out duration-150 w-full text-center">
                     <i class="fa-solid fa-trash"></i>
                 </a>
             </div>

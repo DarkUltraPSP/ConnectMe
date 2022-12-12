@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\Group;
+use App\Form\ContactType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -10,17 +12,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/contact')]
 class ContactController extends AbstractController
 {
-    #[Route('/index', name: 'app_index')]
-    public function index(): Response
-    {
-        return $this->render('index/index.html.twig', [
-            'title' => 'Welcome !',
-        ]);
-    }
-
-    #[Route('/contact/list', name: 'app_contact_list')]
+    #[Route('/list', name: 'app_contact_list')]
     public function list(ManagerRegistry $doctrine): Response
     {
         // get contact list from database
@@ -32,24 +27,44 @@ class ContactController extends AbstractController
         ]);
     }
 
-    #[Route('/contact/add', name: 'app_contact_add')]
-    public function add(): Response
+    #[Route('/add', name: 'app_contact_add')]
+    public function add(Request $request, ManagerRegistry $doctrine): Response
     {
+        $contact = $request->request->all();
+        $entityManager = $doctrine->getManager();
+        $contact = new Contact();
+
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contact = $form->getData();
+
+            $entityManager->persist($contact);
+            $entityManager->flush();
+
+            $this->addFlash('success', "Contact ajouté");
+            return $this->redirectToRoute('app_contact_list');
+        }
+
         return $this->render('Contact/add.html.twig', [
             'title' => 'Ajouter un contact',
+            'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/contact/edit/{id}', name: 'app_contact_edit')]
+    #[Route('/edit/{id}', name: 'app_contact_edit')]
     public function edit(Contact $contact = null, ManagerRegistry $doctrine): Response
     {
+        $groups = $doctrine->getRepository(Group::class)->findAll();
         return $this->render('Contact/edit.html.twig', [
             'title' => 'Editer un contact',
             'contact' => $contact,
+            'groups' => $groups,
         ]);
     }
 
-    #[Route('/contact/update/{id}', name: 'app_contact_update')]
+    #[Route('/update/{id}', name: 'app_contact_update')]
     public function update(Contact $contact = null, Request $request, ManagerRegistry $doctrine): RedirectResponse
     {
         if ($contact) {
@@ -57,7 +72,6 @@ class ContactController extends AbstractController
             $contact->setFname($request->request->get('fname'));
             $contact->setTel($request->request->get('tel'));
             $contact->setMail($request->request->get('email'));
-            $contact->setidGroup($request->request->get('idGroup'));
 
             $manager = $doctrine->getManager();
             $manager->persist($contact);
@@ -69,10 +83,10 @@ class ContactController extends AbstractController
             $this->addFlash('error', "Contact inexistant");
         }
 
-        return $this->redirectToRoute("list");
+        return $this->redirectToRoute("app_contact_list");
     }
     
-    #[Route('/contact/delete/{id}', name: 'app_contact_delete')]
+    #[Route('/delete/{id}', name: 'app_contact_delete')]
     public function delete(Contact $contact = null, ManagerRegistry $doctrine): RedirectResponse
     {
         if ($contact) {
@@ -86,29 +100,18 @@ class ContactController extends AbstractController
             $this->addFlash('error', "Contact inexistant");
         }
 
-        return $this->redirectToRoute("list");
+        return $this->redirectToRoute("app_contact_list");
     }
 
-    #[Route('/contact/add/sender', name: 'app_contact_sender')]
-    public function sender(Request $request, ManagerRegistry $doctrine): RedirectResponse
+    #[Route('/card/{id}', name: 'app_contact_card')]
+    public function card(Contact $contact = null, ManagerRegistry $doctrine): Response
     {
-        // dd($request->request->all());
-        $contact = $request->request->all();
-        $entityManager = $doctrine->getManager();
-        $contact = new Contact(null, $contact['lname'], $contact['fname'], $contact['tel'], $contact['email'], null, $contact['idGroup'] || null);
-        $entityManager->persist($contact);
-        $entityManager->flush();
+        $repo = $doctrine->getRepository(Contact::class);
+        $contact = $repo->find(['id' => $contact->getId()]);
 
-        return $this->redirectToRoute("list");
-    }
-
-    #[Route('/test', name: 'test')]
-    public function test(Request $request): Response
-    {
-        // dd($request->request->all());
-        return $this->render('test/test.html.twig', [
-            //Post data
-            'posts' => $request->request->all(),
+        return $this->render('Contact/card.html.twig', [
+            'title' => 'Profil',
+            'contact' => $contact,
         ]);
     }
 }

@@ -6,7 +6,7 @@
             <p class="text-lg font-bold">Ajouter un contact</p>
         </div>
         <div class="bottom-app">
-            <form action="{{ path('update', {id: contact.id}) }}" method="post" enctype="multipart/form-data" class="flex flex-col w-full h-full justify-center items-center">
+            <form action="{{ path('app_contact_update', {id: contact.id}) }}" method="post" enctype="multipart/form-data" class="flex flex-col w-full h-full justify-center items-center">
                 <div class="">
                     <div class="">
                         <label for="lname" class="text-lg">Nom</label>
@@ -34,11 +34,9 @@
                     <div class="">
                         <label for="name" class="text-lg">Groupe</label>
                         <select name="idGroup" class="border border-black">
-                            <option value=" ">Choisir un groupe</option>
-                            <option value="1">Famille</option>
-                            <option value="2">Amis</option>
-                            <option value="3">Collègues</option>
-                            <option value="4">Autres</option>
+                            {% for group in groups %}
+                                <option value="{{ group.id }}"> {{ group.groupName }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                 </div>

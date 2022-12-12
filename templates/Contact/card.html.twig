@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="flex flex-col justify-around content-wrapper w-1/2 h-5/6 shadow-2xl p-10 rounded-3xl bg-[#e0e0e0]">
+        <div class="photo h-1/4 flex flex-col items-center ">
+            <img src="" class="w-1/2 h-1/2 mx-auto">
+        </div>
+        <div class="identity h-2/4 overflow- scrollbar">
+            <div class="lname">
+                <h1> {{ contact.lname }}</h1>
+            </div>
+            <div class="fname">
+                <h1> {{ contact.fname }}</h1>
+            </div>
+            <div class="mail">
+                <h1> {{ contact.mail }}</h1>
+            </div>
+            <div class="tel">
+                <h1> {{ contact.tel }}</h1>
+            </div>
+            <div class="group">
+                <h1></h1>
+            </div>
+            <div class="additionalFields">
+                {# Faire un for ici sur add fields #}
+            </div>
+        </div>
+        <div class="flex justify-end items-end h-1/4">
+            <a href="" class="addFields ">
+            <i class="fa-solid fa-circle-plus"></i>
+            Ajouter un champ
+        </a>
+        </div>
+    </div>
+{% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ContactRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
@@ -28,29 +30,16 @@ class Contact
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $idGroup = null;
+    #[ORM\ManyToOne(inversedBy: 'contacts')]
+    private ?Group $groupe = null;
 
-    /**
-     * @param int|null $id
-     * @param string|null $lname
-     * @param string|null $fname
-     * @param string|null $tel
-     * @param string|null $mail
-     * @param string|null $photo
-     * @param int|null $idGroup
-     */
-    public function __construct(?int $id, ?string $lname, ?string $fname, ?string $tel, ?string $mail, ?string $photo, ?int $idGroup)
+    #[ORM\OneToMany(mappedBy: 'Contact', targetEntity: AddFields::class)]
+    private Collection $addFields;
+
+    public function __construct()
     {
-        $this->id = $id;
-        $this->lname = $lname;
-        $this->fname = $fname;
-        $this->tel = $tel;
-        $this->mail = $mail;
-        $this->photo = $photo;
-        $this->idGroup = $idGroup;
+        $this->addFields = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -117,15 +106,58 @@ class Contact
         return $this;
     }
 
-    public function getIdGroup(): ?int
+    /**
+     * @return Group|null
+     */
+    public function getGroup(): ?Group
     {
-        return $this->idGroup;
+        return $this->Group;
     }
 
-    public function setIdGroup(?int $idGroup): self
+    public function getGroupe(): ?Group
     {
-        $this->idGroup = $idGroup;
+        return $this->groupe;
+    }
+
+    public function setGroupe(?Group $groupe): self
+    {
+        $this->groupe = $groupe;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, AddFields>
+     */
+    public function getAddFields(): Collection
+    {
+        return $this->addFields;
+    }
+
+    public function addAddField(AddFields $addField): self
+    {
+        if (!$this->addFields->contains($addField)) {
+            $this->addFields->add($addField);
+            $addField->setContact($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddField(AddFields $addField): self
+    {
+        if ($this->addFields->removeElement($addField)) {
+            // set the owning side to null (unless already changed)
+            if ($addField->getContact() === $this) {
+                $addField->setContact(null);
+            }
+        }
+
+        return $this;
+    }
+    
+    public function __toString(): string
+    {
+        return $this->lname . ' ' . $this->fname;
     }
 }

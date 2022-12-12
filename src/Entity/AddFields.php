@@ -19,9 +19,9 @@ class AddFields
     #[ORM\Column(length: 255)]
     private ?string $fieldContent = null;
 
-    #[ORM\Column]
-    private ?int $idContact = null;
-
+    #[ORM\ManyToOne(inversedBy: 'addFields')]
+    private ?Contact $Contact = null;
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -51,14 +51,14 @@ class AddFields
         return $this;
     }
 
-    public function getIdContact(): ?int
+    public function getContact(): ?Contact
     {
-        return $this->idContact;
+        return $this->Contact;
     }
 
-    public function setIdContact(int $idContact): self
+    public function setContact(?Contact $Contact): self
     {
-        $this->idContact = $idContact;
+        $this->Contact = $Contact;
 
         return $this;
     }

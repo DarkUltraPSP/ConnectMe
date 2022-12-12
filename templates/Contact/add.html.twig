@@ -1,49 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-error bg-[#ffcccc] absolute top-1/2 left-1/2 ">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {# display form #}
     <div class="flex flex-col content-wrapper w-2/3 h-4/6 shadow-2xl px-14 rounded-3xl bg-[#e0e0e0]">
         <div class="top-app">
             <p class="text-lg font-bold">Ajouter un contact</p>
         </div>
         <div class="bottom-app">
-            <form action="{{ path('addSender') }}" method="post" enctype="multipart/form-data" class="flex flex-col w-full h-full justify-center items-center">
-                <div class="">
-                    <div class="">
-                        <label for="lname" class="text-lg">Nom</label>
-                        <input type="text" name="lname" id="lname" class="w-2/3 h-1/2 rounded border border-black">
-                    </div>
-                    <div class="">
-                        <label for="fname" class="text-lg">Prénom</label>
-                        <input type="text" name="fname" id="fname" class="w-2/3 h-1/2 rounded border border-black">
-                    </div>
-                </div>
-
-                <div class="">
-                    <div class="">
-                        <label for="tel" class="text-lg">Téléphone</label>
-                        <input type="text" name="tel" id="tel" class="w-2/3 h-1/2 rounded border border-black">
-                    </div>
-                    <div class="">
-                        <label for="email" class="text-lg">Email</label>
-                        <input type="email" name="email" id="email" class="w-2/3 h-1/2 rounded border border-black">
-                    </div>
-                    <div class="">
-                        <label for="photo" class="text-lg">Photo</label>
-                        <input type="file" id="photo" name="photo" accept="image/png, image/jpeg">
-                    </div>
-                    <div class="">
-                        <label for="name" class="text-lg">Groupe</label>
-                        <select name="idGroup" class="border border-black">
-                            <option value=" ">Choisir un groupe</option>
-                            <option value="1">Famille</option>
-                            <option value="2">Amis</option>
-                            <option value="3">Collègues</option>
-                            <option value="4">Autres</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" class="bg-[#003366] hover:bg-[#1c5186] text-white rounded px-3 py-0.5 ease-in-out duration-150 hover:scale-110">Ajouter</button>
-            </form>
+            {{ form(form) }}
         </div>
     </div>
 {% endblock %}
