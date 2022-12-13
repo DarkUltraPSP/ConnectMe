@@ -1,0 +1,15 @@
+<div class="field my-2">
+  <div class="flex justify-between">
+    <div class="values">
+      {{ field.fieldName }} : {{ field.fieldContent }}
+    </div>
+    <div class="action"> 
+        <a href="{{ path('app_edit_fields', {id: field.id}) }}" class="bg-[#003366] hover:bg-[#1c5186] hover:scale-110 text-white rounded p-1 mx-1 ease-in-out duration-150 w-full text-center">
+            <i class="fa-regular fa-pen-to-square"></i>
+        </a>
+        <a href="{{ path('app_delete_fields', {id: field.id}) }}" class="bg-[#990e0e] hover:bg-[#b40f0f] hover:scale-110 text-white rounded p-1 mx-1 ease-in-out duration-150 w-full text-center">
+            <i class="fa-solid fa-trash"></i>
+        </a>
+    </div>
+  </div>
+</div>

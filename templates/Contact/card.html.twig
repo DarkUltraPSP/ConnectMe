@@ -19,14 +19,12 @@
                 <div> Téléphone : {{ contact.tel }}</div>
             </div>
             <div class="group">
-                <div></div>
+                <div> Groupe : {{ contact.groupe.groupName }} </div>
             </div>
             <div class="additionalFields">
                 {# Faire un for ici sur add fields #}
                 {% for field in fields %}
-                    <div class="field">
-                        <div>{{ field.fieldName }} : {{ field.fieldContent }}</div>
-                    </div>
+                    {% include "Contact/addFields.html.twig" %}
                 {% endfor %}
             </div>
         </div>

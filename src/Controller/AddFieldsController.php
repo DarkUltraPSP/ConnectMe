@@ -24,11 +24,10 @@ class AddFieldsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $fields = $form->getData();
+            $field = $form->getData();
             $entityManager->persist($field);
             $entityManager->flush();
 
-            $this->addFlash('success', "Champ Créé");
             return $this->redirectToRoute('app_contact_card', ['id' => $contact->getId()]);
         }
 
@@ -42,18 +41,18 @@ class AddFieldsController extends AbstractController
     #[Route('/edit/{id}', name: 'app_edit_fields')]
     public function edit(Request $request, ManagerRegistry $doctrine, AddFields $field = null): Response
     {
-        $field->setContact($field);
         $entityManager = $doctrine->getManager();
         $form = $this->createForm(AddFieldsType::class, $field);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $fields = $form->getData();
+            
             $entityManager->persist($field);
             $entityManager->flush();
 
             $this->addFlash('success', "Champ Créé");
-            return $this->redirectToRoute('app_contact_card', ['id' => $field->getId()]);
+            return $this->redirectToRoute('app_contact_card', ['id' => $field->getContact()->getId()]);
         }
 
         return $this->render('add_fields/add.html.twig', [

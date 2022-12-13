@@ -7,31 +7,31 @@
         </div>
         <div class="bottom-app">
             <form action="{{ path('app_contact_update', {id: contact.id}) }}" method="post" enctype="multipart/form-data" class="flex flex-col w-full h-full justify-center items-center">
-                <div class="">
-                    <div class="">
+                <div>
+                    <div>
                         <label for="lname" class="text-lg">Nom</label>
                         <input type="text" name="lname" id="lname" class="w-2/3 h-1/2 rounded border border-black" value="{{ contact.lname }}">
                     </div>
-                    <div class="">
+                    <div>
                         <label for="fname" class="text-lg">Prénom</label>
                         <input type="text" name="fname" id="fname" class="w-2/3 h-1/2 rounded border border-black" value="{{ contact.fname }}">
                     </div>
                 </div>
 
-                <div class="">
-                    <div class="">
+                <div>
+                    <div>
                         <label for="tel" class="text-lg">Téléphone</label>
                         <input type="text" name="tel" id="tel" class="w-2/3 h-1/2 rounded border border-black" value="{{ contact.tel }}">
                     </div>
-                    <div class="">
+                    <div>
                         <label for="email" class="text-lg">Email</label>
                         <input type="email" name="email" id="email" class="w-2/3 h-1/2 rounded border border-black" value="{{ contact.mail }}">
                     </div>
-                    <div class="">
+                    <div>
                         <label for="photo" class="text-lg">Photo</label>
                         <input type="file" id="photo" name="photo" accept="image/png, image/jpeg" value="{{ contact.photo }}">
                     </div>
-                    <div class="">
+                    <div>
                         <label for="name" class="text-lg">Groupe</label>
                         <select name="idGroup" class="border border-black">
                             {% for group in groups %}
