@@ -19,7 +19,9 @@
                 <div> Téléphone : {{ contact.tel }}</div>
             </div>
             <div class="group">
-                <div> Groupe : {{ contact.groupe.groupName }} </div>
+                {% if contact.groupe is not empty %}
+                    <div> Groupe : {{ contact.groupe.groupName }} </div>
+                {% endif %}
             </div>
             <div class="additionalFields">
                 {# Faire un for ici sur add fields #}
